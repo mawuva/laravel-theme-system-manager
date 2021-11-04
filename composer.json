@@ -5,7 +5,7 @@
         "mawuekom",
         "laravel-theme-system-manager"
     ],
-    "homepage": "https://github.com/mawuekom/laravel-theme-system-manager",
+    "homepage": "https://github.com/mawuva/laravel-theme-system-manager",
     "license": "MIT",
     "type": "library",
     "authors": [
@@ -25,12 +25,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Mawuekom\\LaravelThemeSystemManager\\": "src"
+            "Mawuekom\\Systhemer\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Mawuekom\\LaravelThemeSystemManager\\Tests\\": "tests"
+            "Mawuekom\\Systhemer\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -44,10 +44,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Mawuekom\\LaravelThemeSystemManager\\LaravelThemeSystemManagerServiceProvider"
+                "Mawuekom\\Systhemer\\SysthemerServiceProvider"
             ],
             "aliases": {
-                "LaravelThemeSystemManager": "Mawuekom\\LaravelThemeSystemManager\\LaravelThemeSystemManagerFacade"
+                "Systhemer": "Mawuekom\\Systhemer\\SysthemerFacade"
             }
         }
     }

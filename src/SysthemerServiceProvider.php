@@ -1,10 +1,10 @@
 <?php
 
-namespace Mawuekom\LaravelThemeSystemManager;
+namespace Mawuekom\Systhemer;
 
 use Illuminate\Support\ServiceProvider;
 
-class LaravelThemeSystemManagerServiceProvider extends ServiceProvider
+class SysthemerServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -14,29 +14,29 @@ class LaravelThemeSystemManagerServiceProvider extends ServiceProvider
         /*
          * Optional methods to load your package assets
          */
-        // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'laravel-theme-system-manager');
-        // $this->loadViewsFrom(__DIR__.'/../resources/views', 'laravel-theme-system-manager');
+        // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'systhemer');
+        // $this->loadViewsFrom(__DIR__.'/../resources/views', 'systhemer');
         // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         // $this->loadRoutesFrom(__DIR__.'/routes.php');
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/config.php' => config_path('laravel-theme-system-manager.php'),
+                __DIR__.'/../config/systhemer.php' => config_path('systhemer.php'),
             ], 'config');
 
             // Publishing the views.
             /*$this->publishes([
-                __DIR__.'/../resources/views' => resource_path('views/vendor/laravel-theme-system-manager'),
+                __DIR__.'/../resources/views' => resource_path('views/vendor/systhemer'),
             ], 'views');*/
 
             // Publishing assets.
             /*$this->publishes([
-                __DIR__.'/../resources/assets' => public_path('vendor/laravel-theme-system-manager'),
+                __DIR__.'/../resources/assets' => public_path('vendor/systhemer'),
             ], 'assets');*/
 
             // Publishing the translation files.
             /*$this->publishes([
-                __DIR__.'/../resources/lang' => resource_path('lang/vendor/laravel-theme-system-manager'),
+                __DIR__.'/../resources/lang' => resource_path('lang/vendor/systhemer'),
             ], 'lang');*/
 
             // Registering package commands.
@@ -50,11 +50,11 @@ class LaravelThemeSystemManagerServiceProvider extends ServiceProvider
     public function register()
     {
         // Automatically apply the package configuration
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'laravel-theme-system-manager');
+        $this->mergeConfigFrom(__DIR__.'/../config/systhemer.php', 'systhemer');
 
         // Register the main class to use with the facade
-        $this->app->singleton('laravel-theme-system-manager', function () {
-            return new LaravelThemeSystemManager;
+        $this->app->singleton('systhemer', function () {
+            return new Systhemer;
         });
     }
 }

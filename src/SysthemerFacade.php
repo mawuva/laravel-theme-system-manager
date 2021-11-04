@@ -1,13 +1,13 @@
 <?php
 
-namespace Mawuekom\LaravelThemeSystemManager;
+namespace Mawuekom\Systhemer;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Mawuekom\LaravelThemeSystemManager\Skeleton\SkeletonClass
+ * @see \Mawuekom\Systhemer\Skeleton\SkeletonClass
  */
-class LaravelThemeSystemManagerFacade extends Facade
+class SysthemerFacade extends Facade
 {
     /**
      * Get the registered name of the component.
@@ -16,6 +16,6 @@ class LaravelThemeSystemManagerFacade extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'laravel-theme-system-manager';
+        return 'systhemer';
     }
 }
