@@ -3,6 +3,7 @@
 namespace Mawuekom\Systhemer;
 
 use Illuminate\Support\ServiceProvider;
+use Mawuekom\Systhemer\Commands\MakeThemeCommand;
 
 class SysthemerServiceProvider extends ServiceProvider
 {
@@ -11,6 +12,8 @@ class SysthemerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        require_once __DIR__.'/helpers.php';
+
         /*
          * Optional methods to load your package assets
          */
@@ -40,7 +43,9 @@ class SysthemerServiceProvider extends ServiceProvider
             ], 'lang');*/
 
             // Registering package commands.
-            // $this->commands([]);
+            $this->commands([
+                MakeThemeCommand::class
+            ]);
         }
     }
 
