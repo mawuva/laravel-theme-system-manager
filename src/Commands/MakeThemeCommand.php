@@ -4,6 +4,8 @@ namespace Mawuekom\Systhemer\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Validator;
+use Mawuekom\Systhemer\Theme\Builder\ThemeBuilder;
+use Mawuekom\Systhemer\Theme\Theme;
 
 class MakeThemeCommand extends Command
 {
@@ -22,9 +24,18 @@ class MakeThemeCommand extends Command
     protected $description = 'Create a new theme.';
 
     /**
+     * Theme's name
+     * 
      * @var string
      */
     public $theme;
+
+    /**
+     * Theme's description
+     * 
+     * @var string
+     */
+    public $themeDescription;
 
     /**
      * Execute the console command.
@@ -35,10 +46,35 @@ class MakeThemeCommand extends Command
     {
         $this ->theme = $this ->askTheme();
 
-        $this->line("<options=bold>Theme Name:</options=bold> {$this->theme}");
-        $this->line('');
+        systhemer() ->ensureThemesDirectoryExists();
 
-        $this ->info("Theme scaffolding installed successfully.\n");
+        try {
+            (new ThemeBuilder($this ->getTheme())) ->execute();
+
+            $this->line("<options=bold>Theme Name:</options=bold> {$this->theme}");
+            $this->line('');
+
+            $this ->info("Theme scaffolding installed successfully.\n");
+        }
+
+        catch (\Exception $e) {
+            $this->error($e ->getMessage());
+            return;
+        }
+    }
+
+    /**
+     * Create Thme instance from given responses
+     *
+     * @return \Mawuekom\Systhemer\Theme\Theme
+     */
+    public function getTheme()
+    {
+        return new Theme(
+            $this ->theme,
+            $this ->themeDescription,
+            resolve_theme_path($this ->theme)
+        );
     }
 
     /**
@@ -59,6 +95,26 @@ class MakeThemeCommand extends Command
         }
 
         return $theme;
+    }
+
+    /**
+     * Ask theme's description
+     * 
+     * @return string $themeDescription
+     */
+    protected function askThemeDescription()
+    {
+        $themeDescription = $this->argument('themeDescription');
+
+        if (! $themeDescription) {
+            $themeDescription = $this->askValid(
+                'Description of your theme',
+                'themeDescription',
+                []
+            );
+        }
+
+        return $themeDescription;
     }
 
     /**
