@@ -12,6 +12,7 @@ trait HandleFiles
      * @param  string $path
      * @param  int    $mode
      * @param  bool   $recursive
+     * 
      * @return void
      */
     protected function ensureDirectoryExists($path, $mode = 0755, $recursive = true)
@@ -27,6 +28,7 @@ trait HandleFiles
      * @param  string $search
      * @param  string $replace
      * @param  string $path
+     * 
      * @return void
      */
     protected function replaceInFile($search, $replace, $path)
@@ -40,6 +42,7 @@ trait HandleFiles
      * @param  string   $directory
      * @param  string   $destination
      * @param  int|null $options
+     * 
      * @return bool
      */
     public function copyDirectory($directory, $destination, $options = null)
@@ -51,6 +54,7 @@ trait HandleFiles
      * Determine if a file or directory exists.
      *
      * @param  string $path
+     * 
      * @return bool
      */
     public function exists($path)
@@ -63,6 +67,7 @@ trait HandleFiles
      *
      * @param  string $path
      * @param  string $data
+     * 
      * @return int
      */
     public function append($path, $data)
