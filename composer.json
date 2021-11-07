@@ -19,6 +19,7 @@
         "php": "^7.4|^8.0",
         "illuminate/support": "^8.0",
         "illuminate/console": "^8.0",
+        "illuminate/contracts": "^8.0",
         "illuminate/filesystem": "^8.0"
     },
     "require-dev": {
@@ -49,7 +50,9 @@
                 "Mawuekom\\Systhemer\\SysthemerServiceProvider"
             ],
             "aliases": {
-                "Systhemer": "Mawuekom\\Systhemer\\SysthemerFacade"
+                "Systhemer": "Mawuekom\\Systhemer\\Facades\\SysthemerFacade",
+                "Theme": "Mawuekom\\Systhemer\\Facades\\ThemeFacade",
+                "ThemeBuilder": "Mawuekom\\Systhemer\\Facades\\ThemeBuilderFacade"
             }
         }
     }

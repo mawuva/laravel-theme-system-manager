@@ -4,6 +4,7 @@ namespace Mawuekom\Systhemer;
 
 use Illuminate\Support\ServiceProvider;
 use Mawuekom\Systhemer\Commands\MakeThemeCommand;
+use Mawuekom\Systhemer\Theme\Theme;
 
 class SysthemerServiceProvider extends ServiceProvider
 {
