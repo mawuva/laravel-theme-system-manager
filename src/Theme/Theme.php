@@ -86,6 +86,18 @@ class Theme implements Arrayable
     }
 
     /**
+     * Set file path according to the theme path.
+     *
+     * @param string $filePath
+     *
+     * @return string
+     */
+    public function setFilePath($filePath)
+    {
+        return $this->path . $filePath;
+    }
+
+    /**
      * Determines whether or not a theme has a parent.
      *
      * @return bool

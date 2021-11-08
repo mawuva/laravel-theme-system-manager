@@ -74,4 +74,42 @@ trait HandleFiles
     {
         return file_put_contents($path, $data, FILE_APPEND);
     }
+
+    /**
+     * Get all files in directory.
+     *
+     * @param string $path
+     * @param bool $hidden
+     *
+     * @return void|array
+     */
+    public function getAllFiles($path, $hidden = false)
+    {
+        return (new Filesystem) ->files($path, $hidden);
+    }
+
+    /**
+     * Get file content.
+     *
+     * @param string $path
+     *
+     * @return string
+     */
+    public function getFileContent($path)
+    {
+        return (new Filesystem) ->get($path);
+    }
+
+    /**
+     * Get file content.
+     *
+     * @param string $path
+     * @param string $contents
+     *
+     * @return int|bool
+     */
+    public function putContentInFile($path, $contents)
+    {
+        return (new Filesystem) ->put($path, $contents);
+    }
 }

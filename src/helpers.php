@@ -76,3 +76,19 @@ if (! function_exists('is_filepath')) {
         return false;
     }
 }
+
+if (! function_exists('stub_directory_path')) {
+    /**
+     * Get the path to the stubs directory folder.
+     * 
+     * @var string|null $path
+     * 
+     * @return string
+     */
+    function stub_directory_path($path = null) {
+        $stubPath = __DIR__ . DIRECTORY_SEPARATOR . '../resources/stubs';
+        return ($path) 
+                ? $stubPath . DIRECTORY_SEPARATOR . $path
+                : $stubPath;
+    }
+}
