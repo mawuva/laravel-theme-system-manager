@@ -2,8 +2,8 @@
 
 namespace Mawuekom\Systhemer\Theme\Builder;
 
-use Illuminate\Filesystem\Filesystem;
 use Mawuekom\Systhemer\Exceptions\ThemeAlreadyExists;
+use Mawuekom\Systhemer\Theme\Builder\StubManager;
 use Mawuekom\Systhemer\Theme\Theme;
 use Mawuekom\Systhemer\Traits\HandleFiles;
 
@@ -25,18 +25,10 @@ class ThemeBuilder
      */
     private $themeStubDirectory;
 
-    /**
-     * Theme stub file.
-     *
-     * @var array
-     */
-    private $stubs = [];
-
     public function __construct(Theme $theme)
     {
         $this ->theme = $theme;
         $this ->themeStubDirectory = stub_directory_path('theme');
-        $this ->stubs = $this ->getStub();
     }
 
     /**
@@ -49,6 +41,11 @@ class ThemeBuilder
         return $this ->theme;
     }
 
+    /**
+     * Execute theme builder
+     *
+     * @return void
+     */
     public function execute()
     {
         if (systhemer() ->themeExists($this ->theme ->getName())) {
@@ -57,9 +54,11 @@ class ThemeBuilder
 
         $this ->ensureDirectoryExists($this ->theme ->getPath());
 
-        $templates = $this ->getStubTemplate();
+        $templates = $this ->initStubManager() ->getStubTemplate();
 
         foreach ($templates as $template) {
+            $this ->ensureThemeSubDirectoryExists($template['source_file_path']);
+
             $this ->putContentInFile(
                 $this ->theme ->setFilePath($template['source_file_path']), 
                 $template['file_content']
@@ -68,20 +67,13 @@ class ThemeBuilder
     }
 
     /**
-     * Get theme stub files
-     * 
-     * @return array
+     * Init StubManager object
+     *
+     * @return \Mawuekom\Systhemer\Theme\Builder\StubManager
      */
-    private function getStub()
+    public function initStubManager()
     {
-        $files = $this ->getAllFiles($this ->themeStubDirectory);
-        $stubs = [];
-
-        foreach ($files as $file) {
-            $stubs[] = $this ->resolveStubSourceFilePath($file ->getPathName());
-        }
-
-        return $stubs;
+        return new StubManager($this ->themeStubDirectory, $this ->getStubData());
     }
 
     /**
@@ -97,56 +89,18 @@ class ThemeBuilder
     }
 
     /**
-     * Replace the stub variables(key) with the desire value
-     *
-     * @param string $stub
-     * @param array $stubData
-     *
-     * @return bool|mixed|string
-     */
-    private function updateStubContents($stub, $stubData)
-    {
-        foreach ($stubData as $search => $replace) {
-            $stub = str_replace('{{ '.$search.' }}', $replace, $stub);
-        }
-
-        return $stub;
-    }
-
-    /**
-     * Get the stub path and the stub variables and render all.
-     *
-     * @return bool|mixed|string
-     */
-    private function getStubTemplate()
-    {
-        $stubData = $this ->getStubData();
-        $renderStubs = [];
-
-        foreach ($this ->stubs as $key => $stub) {
-            $renderStubs[$key]['file_content'] = $this ->updateStubContents($stub['file_content'], $stubData);
-            $renderStubs[$key]['source_file_path'] = $stub['source_file_path'];
-        }
-
-        return $renderStubs;
-    }
-
-    /**
-     * Resolve stub sources file path
+     * Ensure theme directories exists
      *
      * @param string $path
      *
-     * @return array
+     * @return void
      */
-    private function resolveStubSourceFilePath($path)
+    public function ensureThemeSubDirectoryExists($path)
     {
-        $data = explode($this ->themeStubDirectory, $path);
+        $pathComponents = explode('/', $path);
+        $pathFolders = rtrim($path, end($pathComponents));
 
-        return [
-            'file_content' => $this ->getFileContent($path),
-            'source_file_path' => (str_contains($data[1], '.stub')) 
-                                    ? explode('.stub', $data[1])[0] 
-                                    : $data
-        ];
+        if ($pathFolders !== '/')
+            $this ->ensureDirectoryExists($this ->theme ->setFilePath($pathFolders));
     }
 }

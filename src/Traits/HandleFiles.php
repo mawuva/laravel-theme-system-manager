@@ -85,7 +85,7 @@ trait HandleFiles
      */
     public function getAllFiles($path, $hidden = false)
     {
-        return (new Filesystem) ->files($path, $hidden);
+        return (new Filesystem) ->allFiles($path, $hidden);
     }
 
     /**
