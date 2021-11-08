@@ -52,7 +52,8 @@
             "aliases": {
                 "Systhemer": "Mawuekom\\Systhemer\\Facades\\SysthemerFacade",
                 "Theme": "Mawuekom\\Systhemer\\Facades\\ThemeFacade",
-                "ThemeBuilder": "Mawuekom\\Systhemer\\Facades\\ThemeBuilderFacade"
+                "ThemeBuilder": "Mawuekom\\Systhemer\\Facades\\ThemeBuilderFacade",
+                "StubManager": "Mawuekom\\Systhemer\\Facades\\StubManagerFacade"
             }
         }
     }
